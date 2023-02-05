@@ -45,6 +45,17 @@ from
 group by
     customer_id,
     event_type;
+
+select 
+    c.customer_id,
+    c.customer_name,
+    count(o.order_id) as order_count,
+    sum(coalesce(o.order_amount, 0)) as total_orders
+from vk_data.examples.customers as c
+left join vk_data.examples.orders as o on c.customer_id = o.customer_id
+group by 
+    c.customer_id,
+    c.customer_name;
 select
     recipe_name,
     tag_list,
@@ -63,4 +74,89 @@ WITH cities AS (
     FROM VK_DATA.RESOURCES.US_CITIES
     QUALIFY ROW_NUMBER() over (partition by UPPER(city_name), UPPER(state_abbr) ORDER BY 1) = 1
     
-),
+);
+
+// Pivoting
+select 
+    video_name,
+    date_part(month, view_date) as view_month,
+    count(*) as total_views
+from vk_data.examples.video_views
+group by 
+    video_name,
+    view_month;
+
+select
+    *
+from
+    (select 
+        video_name,
+        date_part(month, view_date) as view_month,
+        count(*) as total_views
+    from vk_data.examples.video_views
+    group by 
+        video_name,
+        view_month) views_by_month
+pivot( sum(total_views) 
+    for view_month in (1, 2, 3)) 
+    as pivot_values (video_name, january_views, february_views, march_views);
+
+select
+    *
+from vk_data.examples.facebook_marketing;
+
+select
+    'facebook' as marketing_channel,
+    activity_date,
+    total_type,
+    total_value
+from vk_data.examples.facebook_marketing
+unpivot 
+    (total_value for total_type in (
+        total_spend, total_impressions, total_clicks, total_sales
+    )
+ ) unpivoted_data;
+
+ select
+    activity_date,
+    sum(activity_total) as total_spend
+from vk_data.examples.facebook_marketing
+where activity_type = 'total_spend'
+group by activity_date
+order by activity_date;
+
+select 
+    customer_id,
+    flat_cell_phone.*
+from vk_data.examples.customer_details
+, table(flatten(cell_phone)) as flat_cell_phone;
+
+select 
+    customer_id,
+    first_name,
+    last_name,
+    employment_history
+from vk_data.examples.customer_employment;
+
+select 
+    customer_id,
+    flat_history.value,
+    flat_history.value:employer as employer,
+    flat_history.value:title as job_title
+from vk_data.examples.customer_employment
+, table(flatten(employment_history:jobs)) as flat_history;
+
+select 
+    customer_id,
+    flat_data.value
+from vk_data.examples.customer_variant
+, table(flatten(customer_variant)) as flat_data;
+
+
+select 
+    customer_id,
+    flat_history.value,
+    flat_history.value:employer as employer,
+    flat_history.value:title as job_title
+from vk_data.examples.customer_variant
+, table(flatten(customer_variant:jobs)) as flat_history;
