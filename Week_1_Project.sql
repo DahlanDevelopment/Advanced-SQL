@@ -1,4 +1,3 @@
-
 WITH Customers AS (
     SELECT 
         c.customer_id AS customer_id, 
@@ -63,7 +62,7 @@ suppliers_location AS (
 ),
 
 
-results AS (
+calculate_customers_suppliers_distance AS (
     SELECT
         customer_id,
         customer_first_name,
@@ -89,7 +88,7 @@ results AS (
 
 
 SELECT *
-FROM results;
+FROM calculate_customers_suppliers_distance;
 
 
 
