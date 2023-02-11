@@ -11,8 +11,9 @@ WITH
                 (city_name = 'CHICAGO' AND state_abbr = 'IL') OR
                 (city_name = 'GARY' AND state_abbr = 'IN') OR
                 ((city_name = 'CONCORD' OR city_name = 'ASHLAND') AND state_abbr = 'KY') OR
-                (city_name = 'PLEASANT HILL' AND state_abbr = 'CA') OR
-                ((city_name = 'BROWNSVILLE' OR city_name = 'ARLINGTON') AND state_abbr = 'TX')
+                ((city_name = 'PLEASANT HILL' OR city_name = 'OAKLAND') AND state_abbr = 'CA') OR
+                (city_name = 'ARLINGTON' AND state_abbr = 'TX') OR
+                city_name = 'BROWNSVILLE'
     ),
     chicago_location AS (
         SELECT 
