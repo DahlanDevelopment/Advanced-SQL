@@ -55,3 +55,5 @@ result AS (
 )
 SELECT *
 FROM result;
+
+// Most expensive nodes to run is TableScan on VK_DATA_CHEFS.RECIPE
