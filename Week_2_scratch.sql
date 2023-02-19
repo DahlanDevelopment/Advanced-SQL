@@ -1,10 +1,11 @@
 // US Cities
--- SELECT 
---     INITCAP(TRIM(city_name)) AS city_name,
---     UPPER(TRIM(state_abbr)) AS state_abbr,
---     geo_location
--- FROM VK_DATA.RESOURCES.US_CITIES
--- LIMIT 10;
+SELECT 
+    INITCAP(TRIM(city_name)) AS city_name,
+    UPPER(TRIM(state_abbr)) AS state_abbr,
+    geo_location
+FROM VK_DATA.RESOURCES.US_CITIES
+ORDER BY city_name
+//LIMIT 10;
 
 // Customers with Address
 -- SELECT 
@@ -55,17 +56,17 @@
 --     city_name = 'CHICAGO' 
 --     and state_abbr = 'IL'
 
-SELECT 
-                INITCAP(TRIM(city_name)) AS city_name,
-                UPPER(TRIM(state_abbr)) AS state_abbr,
-                lat,
-                long,
-                geo_location
-            FROM VK_DATA.RESOURCES.US_CITIES
-            WHERE 
-                (city_name = 'CHICAGO' AND state_abbr = 'IL') OR
-                (city_name = 'GARY' AND state_abbr = 'IN') OR
-                ((city_name = 'CONCORD' OR city_name = 'ASHLAND') AND state_abbr = 'KY') OR
-                ((city_name = 'PLEASANT HILL' OR city_name = 'OAKLAND') AND state_abbr = 'CA') OR
-                (city_name = 'ARLINGTON' AND state_abbr = 'TX') OR
-                city_name = 'BROWNSVILLE'
+-- SELECT 
+--                 INITCAP(TRIM(city_name)) AS city_name,
+--                 UPPER(TRIM(state_abbr)) AS state_abbr,
+--                 lat,
+--                 long,
+--                 geo_location
+--             FROM VK_DATA.RESOURCES.US_CITIES
+--             WHERE 
+--                 (city_name = 'CHICAGO' AND state_abbr = 'IL') OR
+--                 (city_name = 'GARY' AND state_abbr = 'IN') OR
+--                 ((city_name = 'CONCORD' OR city_name = 'ASHLAND') AND state_abbr = 'KY') OR
+--                 ((city_name = 'PLEASANT HILL' OR city_name = 'OAKLAND') AND state_abbr = 'CA') OR
+--                 (city_name = 'ARLINGTON' AND state_abbr = 'TX') OR
+--                 city_name = 'BROWNSVILLE'
